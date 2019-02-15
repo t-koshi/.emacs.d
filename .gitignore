@@ -1,0 +1,7 @@
+# -*- mode: gitignore; -*-
+*~
+.\#*
+
+# cask packages
+.cask/
+dist/
