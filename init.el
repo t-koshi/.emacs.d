@@ -1,26 +1,39 @@
+;; https://github.com/emacsmirror/emacswiki.org/blob/master/init-lsp.el
+
 (require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el")
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (markdown-mode yasnippet web-mode use-package smex smartparens projectile prodigy popwin pallet nyan-mode multiple-cursors magit idle-highlight-mode htmlize flycheck-cask expand-region exec-path-from-shell drag-stuff))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(add-hook 'ruby-mode-hook #'lsp)
 
-(use-package markdown-mode
-  :ensure t
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+(global-company-mode)
+(setq company-idle-delay 0.1)
+(setq company-minimum-prefix-length 2)
+(define-key company-active-map (kbd "M-n") nil)
+(define-key company-active-map (kbd "M-p") nil)
+(define-key company-active-map (kbd "C-n") 'company-select-next)
+(define-key company-active-map (kbd "C-p") 'company-select-previous)
+(define-key company-active-map (kbd "C-h") nil)
+
+(defun company--insert-candidate2 (candidate)
+  (when (> (length candidate) 0)
+    (setq candidate (substring-no-properties candidate))
+    (if (eq (company-call-backend 'ignore-case) 'keep-prefix)
+        (insert (company-strip-prefix candidate))
+      (if (equal company-prefix candidate)
+          (company-select-next)
+          (delete-region (- (point) (length company-prefix)) (point))
+        (insert candidate))
+      )))
+
+(defun company-complete-common2 ()
+  (interactive)
+  (when (company-manual-begin)
+    (if (and (not (cdr company-candidates))
+             (equal company-common (car company-candidates)))
+        (company-complete-selection)
+      (company--insert-candidate2 company-common))))
+
+(define-key company-active-map [tab] 'company-complete-common2)
+(define-key company-active-map [backtab] 'company-select-previous) ; おまけ

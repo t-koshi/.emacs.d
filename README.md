@@ -1,4 +1,5 @@
 ### 必要ツールのインストール
+- `gem install solargraph`
 - `brew install cask`
 - `brew install multimarkdown`
 

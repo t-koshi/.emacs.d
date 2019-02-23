@@ -5,3 +5,9 @@
 # cask packages
 .cask/
 dist/
+
+.recentf
+server/
+auto-save-list/
+eshell/
+*.???~

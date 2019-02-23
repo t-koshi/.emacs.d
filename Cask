@@ -3,6 +3,8 @@
 
 (depends-on "bind-key")
 (depends-on "cask")
+(depends-on "company")
+(depends-on "company-lsp")
 (depends-on "dash")
 (depends-on "drag-stuff")
 (depends-on "exec-path-from-shell")
@@ -12,6 +14,9 @@
 (depends-on "flycheck-cask")
 (depends-on "htmlize")
 (depends-on "idle-highlight-mode")
+(depends-on "lsp-mode")
+(depends-on "lsp-ruby")
+(depends-on "lsp-ui")
 (depends-on "magit")
 (depends-on "markdown-mode")
 (depends-on "multiple-cursors")
