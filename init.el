@@ -21,6 +21,8 @@
 (load-theme 'solarized t)
 (set-frame-parameter nil 'background-mode 'dark)
 (set-terminal-parameter nil 'background-mode 'dark)
+;;(set-frame-parameter nil 'background-mode 'light)
+;;(set-terminal-parameter nil 'background-mode 'light)
 
 (defun company--insert-candidate2 (candidate)
   (when (> (length candidate) 0)
