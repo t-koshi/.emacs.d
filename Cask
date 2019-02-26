@@ -17,6 +17,7 @@
 (depends-on "flycheck")
 (depends-on "flycheck-cask")
 (depends-on "git-commit")
+(depends-on "helm")
 (depends-on "ht")
 (depends-on "htmlize")
 (depends-on "idle-highlight-mode")
